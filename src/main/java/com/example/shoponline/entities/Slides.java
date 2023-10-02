@@ -1,27 +1,32 @@
 package com.example.shoponline.entities;
 
+import com.example.shoponline.entities.enums.SlideStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "category_tbl")
-public class Category {
+@Table(name = "slides_tbl")
+public class Slides {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "slides_title")
+    private String title;
 
-    @Column(name = "cate_name")
-    @NotEmpty(message = "Category name cannot be empty")
-    private String name;
+    @Column(name = "slides_image")
+    private String image;
+
+    @Column (name = "slides_status")
+    @Enumerated(EnumType.STRING)
+    private SlideStatus status;
+
 }
