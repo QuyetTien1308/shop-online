@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class Slides {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
     @Column(name = "slides_title")
     private String title;
