@@ -80,7 +80,7 @@ public class SlideController {
 
     @RequestMapping(value = Constants.ADMIN_SLIDEMNG_PATH, method = RequestMethod.POST)
     public String UpdateSlider(Slides slides, Model model,
-                               @RequestParam(name = "files", required = true) MultipartFile[] files){
+                               @RequestParam(name = "files", required = false) MultipartFile[] files){
         if(Validate.checkStringNotEmptyOrNull(slides.getId())){
             if (files != null){
                 slideService.uploadListImage(slides.getId(), files);
@@ -89,14 +89,16 @@ public class SlideController {
             if(flag) {
                 model.addAttribute("flag", true);
                 model.addAttribute("msg", "Update Success");
-                return findPaginated(1, "name", "asc", model);
+
+//                return findPaginated(1, "name", "asc", model);
 
             }else {
                 model.addAttribute("flag", false);
                 model.addAttribute("msg", "Not Update Success");
                 return getFormSlide(model);
             }
-
+            model.addAttribute("slides", slideService.loadAll());
+            return getSlidePage(model);
         }else {
             if (files != null && files.length>0){
                 slides = slideService.create(slides, files[0]);
@@ -110,15 +112,15 @@ public class SlideController {
                 }
                 model.addAttribute("flag", true);
                 model.addAttribute("msg", "Add Success");
-                return findPaginated(1, "name", "asc", model);
+
+//                return findPaginated(1, "name", "asc", model);
 
             }else {
                 model.addAttribute("flag", false);
                 model.addAttribute("msg", "Add Success");
                 return getFormSlide(model);
             }
-
         }
-
+        return null;
     }
 }
